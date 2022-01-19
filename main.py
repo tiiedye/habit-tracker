@@ -49,10 +49,10 @@ pixel_config = {
     "quantity": "10.0"
 }
 
-# NOTE: Comment this in when filling a pixel
-# pixel_response = requests.post(url=fill_pixel_endpoint, json=pixel_config, headers=headers)
+# NOTE: Comment this OUT if you do not want to add a datapoint
+pixel_response = requests.post(url=fill_pixel_endpoint, json=pixel_config, headers=headers)
 
-# NOTE: Edit any information necessary for the update
+# NOTE: Edit any information necessary for the update/delete
 date_to_update = datetime(year=2022, month=1, day=17)
 update_pixel_endpoint = f"{pixela_endpoint}/{username}/graphs/{graphID}/{date_to_update.strftime('%Y%m%d')}"
 
@@ -62,3 +62,7 @@ update_config = {
 
 # NOTE: Comment this in to update a datapoint
 # update_response = requests.put(url=update_pixel_endpoint, json=update_config, headers=headers)
+
+delete_pixel_endpoint = f"{pixela_endpoint}/{username}/graphs/{graphID}/{date_to_update.strftime('%Y%m%d')}"
+# NOTE: Comment in to delete datapoint
+# delete_response = requests.delete(url=delete_pixel_endpoint, headers=headers)
