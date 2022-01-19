@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 # NOTE: To run this program you will need to create your own .env file and use your own credentials
 # NOTE: pixela user documentation: https://docs.pixe.la/entry/post-user
@@ -23,8 +24,9 @@ user_params = {
 graph_endpoint = f"{pixela_endpoint}/{username}/graphs"
 
 # Developer Note: If using or testing this app, you can change these configs as needed to suit your needs
+graphID = "graph1"
 graph_config = {
-    "id": "graph1",
+    "id": graphID,
     "name": "Meditation Graph",
     "unit": "minute",
     "type": "float",
@@ -35,5 +37,17 @@ headers = {
     "X-USER-TOKEN": user_token
 }
 
-graph_response = requests.post(url=graph_endpoint, json=graph_config, headers=headers)
+# NOTE: Comment in to create graph using graph_config
+# graph_response = requests.post(url=graph_endpoint, json=graph_config, headers=headers)
 
+fill_pixel_endpoint = f"{pixela_endpoint}/{username}/graphs/{graphID}"
+now = datetime.now()
+date = now.strftime("%Y%m%d")
+
+pixel_config = {
+    "date": date,
+    "quantity": "10.0"
+}
+
+pixel_response = requests.post(url=fill_pixel_endpoint, json=pixel_config, headers=headers)
+print(pixel_response.text)
